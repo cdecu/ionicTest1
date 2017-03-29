@@ -11,9 +11,9 @@ import {GameBoard, GameTile} from "../../providers/game-board";
   templateUrl: 'board-tile.html',
   animations: [trigger('flipflap',
     [
-    state('front, void', style({ transform: 'rotateY(0deg)' })),
-    state('back', style({ transform: 'rotateY(180deg)' })),
-    transition('front <=> back', [animate(500)])
+    state('back, void', style({ transform: 'rotateY(180deg)' })),
+    state('front', style({ transform: 'rotateY(0deg)' })),
+    transition('front <=> back', [animate('0.85s ease-in')]),
     ])]
 })
 export class BoardTileComponent {
@@ -49,7 +49,7 @@ export class BoardTileComponent {
 
   Toggle(): void {
     //console.log('Toggle ',this._tile);
-    this.gameBoard.toggleTile(this._tile);
+    this.gameBoard.clickTile(this._tile);
     }
 
 }

@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {animate, state, style, transition, trigger} from '@angular/animations';
-import {GameBoard, GameTile} from "../../providers/game-board";
+import {GameService, GameTile} from "../../providers/game.service";
 
 /* *********************************************************************************************************************
   flip flap game board tile
@@ -18,38 +18,17 @@ import {GameBoard, GameTile} from "../../providers/game-board";
 })
 export class BoardTileComponent {
   
-  _tile : GameTile;
+  @Input() tile : GameTile;
+  public get frontState(): string { return this.tile.frontState};
+  public get backState(): string { return this.tile.backState};
+  public get id(): number { return this.tile.id};
 
-  @Input() set tile(value: GameTile) {
-    this._tile = value;
-    };
-  get tile(): GameTile {
-    return this._tile;
-    }
-  get frontState(): string {
-    return this._tile.frontState;
-    }
-  get backState(): string {
-    return this._tile.backState;
-    }
-  get id(): number {
-    return this._tile.id;
-    }
-
-  constructor(private gameBoard: GameBoard ) {
-    }
-
-  turnOn(): void {
-    this.turnOn();
+  constructor(private gameService: GameService ) {
     }
   
-  turnDown(): void {
-    this.turnDown();
-    }
-
   Toggle(): void {
-    //console.log('Toggle ',this._tile);
-    this.gameBoard.clickTile(this._tile);
+    // console.log('Toggle ',this._tile);
+    this.gameService.clickTile(this.tile);
     }
 
 }

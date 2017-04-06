@@ -5,8 +5,8 @@ import { Platform, MenuController, Nav } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { GameBoard } from "../providers/game-board";
-import { GameBoardPage } from '../pages/board/board';
+import { GameService } from "../providers/game.service";
+import { PlayGroundPage } from '../pages/board/playground';
 import { ListPage } from '../pages/list/list';
 
 
@@ -18,7 +18,7 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
   
   // make GameBoardPage the root (or first) page
-  rootPage: any = GameBoardPage;
+  rootPage: any = ListPage;
   pages: Array<{ title: string, component: any }>;
   
   /** ******************************************************************************************************************
@@ -33,13 +33,13 @@ export class MyApp {
               public menu: MenuController,
               public statusBar: StatusBar,
               public splashScreen: SplashScreen,
-              public gameBoard: GameBoard) {
+              public gameBoard: GameService) {
     
     this.initializeApp();
     
     // set our app's pages
     this.pages = [
-      {title: 'Hello Ionic', component: GameBoardPage},
+      {title: 'Hello Ionic', component: PlayGroundPage},
       {title: 'My First List', component: ListPage}
     ];
   }
@@ -56,12 +56,14 @@ export class MyApp {
       //console.log(this.platform.versions());
       //console.log(this.platform.win());
       this.gameBoard.recalcBoard(this.platform);
-    });
+      });
     this.platform.resize.subscribe(() => {
       // Cordova app comes out from the background.
-      this.gameBoard.recalcBoard(this.platform);
-      this.restartGame();
-    });
+      if (this.gameBoard.recalcBoard(this.platform))
+        this.restartGame();
+      else
+        this.menu.close();
+      });
   }
   
   /** ******************************************************************************************************************
@@ -82,6 +84,7 @@ export class MyApp {
     console.log('restartGame');
     //console.log(this.platform.win());
     //this.nav.goToRoot({});
+    this.menu.close();
     }
   
 }

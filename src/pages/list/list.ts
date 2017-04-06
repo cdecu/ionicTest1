@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 import { NavController, NavParams } from 'ionic-angular';
 
-import { ItemDetailsPage } from '../item-details/item-details';
+import {PlayGroundPage} from "../board/playground";
 
 
 @Component({
@@ -32,7 +32,7 @@ export class ListPage {
   }
 
   itemTapped(event, item) {
-    this.navCtrl.push(ItemDetailsPage, {
+    this.navCtrl.push(PlayGroundPage, {
       item: item
     });
   }

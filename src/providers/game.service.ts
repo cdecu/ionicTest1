@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Platform } from 'ionic-angular';
+import {Observable} from "rxjs/Observable";
+import {Observer} from "rxjs/Observer";
 
 /* *********************************************************************************************************************
  flip flap game board tile
@@ -12,6 +14,7 @@ export class GameTile {
   public matched = false;
   
   constructor(public id : number, public turnedOn : boolean) {
+    this.key=id.toString();
     }
   
   public turnOn(): void {
@@ -46,65 +49,84 @@ export class GameTile {
  flip flap game board tile
  */
 @Injectable()
-export class GameBoard {
+export class GameService {
   
-  public tiles : GameTile[] = [];
-  public firstPick?: GameTile = undefined;
-  public secondPick?: GameTile = undefined;
-  private timeoutID?: number = undefined;
-  private UnMatchedPairs = 0;
-  private isOver = false;
-  private matches = 0;
-  private moves = 0;
+  private NbTiles               = 9;
+  private timeoutID?: number    = undefined;
+  private UnMatchedPairs        = 0;
+  private isOver                = false;
+  private matches               = 0;
+  private moves                 = 0;
+  private firstPick?: GameTile  = undefined;
+  private secondPick?: GameTile = undefined;
   
   
   /* *********************************************************************************************************************
    * Ionic make me singleton iff
    */
   constructor() {
-    console.log('Hello GameBoard Provider');
+    console.log('Hello GameService Provider');
     }
   
+  public get tiles$(): Observable<Array<GameTile>> {
+    let t$ = new Observable<Array<GameTile>>((observer: Observer<Array<GameTile>>) => {
+      let t : GameTile[] = [];
+      for (let i = 0 ; i < this.NbTiles ; i++)
+        t[i] = new GameTile(i + 1, false);
+      //this.shuffleTiles();
+      observer.next(t);
+      observer.complete();
+      });
+    return t$;
+  }
+  
   /* *********************************************************************************************************************
-   * New Game
+   * Prepare tiles according to ...
+   */
+  recalcBoard(platform: Platform): boolean {
+    console.log('GameService recalcBoard Platform width:',platform.width(),'height:',platform.height());
+    // Must match css board padding : .5px; + board-tile flex: 1 0 79.5px
+    let NbCols = Math.floor(platform.width()  / 80.00);
+    let NbRows = Math.floor(platform.height() / 80.00);
+    if ((NbCols % 2)&&(NbRows % 2)) NbRows++;
+    let Nb = NbCols*NbRows;
+    if (this.NbTiles === Nb) {
+      console.log('Keep NbRows',NbRows,'NbCols',NbCols,'Tiles',Nb);
+      return false;
+      }
+    console.log('New Game NbRows',NbRows,'NbCols',NbCols,'Tiles',Nb);
+    this.NbTiles = Nb;
+    this.newGame();
+    return true;
+  }
+
+  /* *********************************************************************************************************************
+   * New Game, Reset counters
    */
   newGame(): void {
+    console.log('GameController.newGame Tiles',this.NbTiles);
     this.isOver = false;
     this.moves = 0;
     this.matches = 0;
-    this.UnMatchedPairs = this.tiles.length / 2;
     this.firstPick = undefined;
     this.secondPick = undefined;
+    this.UnMatchedPairs = this.NbTiles / 2;
     clearTimeout(this.timeoutID);
     this.timeoutID=undefined;
+    }
+  
+  /* *********************************************************************************************************************
+   * shuffle tiles ...
+   */
+  public shuffleTiles(): void {
+    console.log('GameController.shuffleTiles');
     //this.tiles = shuffle(this.tiles);
     //cards.map(card=> {
     //  /** push the card twice with different ref */
     //  this.cards.push(card);
     //  this.cards.push(Object.assign({}, card));
     //});
-    }
-  
-  /* *********************************************************************************************************************
-   * Prepare tiles according to ...
-   */
-  recalcBoard(platform: Platform): boolean {
-    // console.log('GameBoard recalcBoard Platform width:',platform.width(),'height:',platform.height());
-    // Must match css board padding : .5px; + board-tile flex: 1 0 79.5px
-    let NbCols = Math.floor(platform.width()  / 80.00);
-    let NbRows = Math.floor(platform.height() / 80.00);
-    if ((NbCols % 2)&&(NbRows % 2)) NbCols++;
-    let NbTiles = NbCols*NbRows;
-    if (this.tiles.length === NbTiles) {
-      console.log('Keep NbRows',NbRows,'NbCols',NbCols);
-      return false;
-      }
-    console.log('New Game NbRows',NbRows,'NbCols',NbCols);
-    this.tiles = [];
-    for (let i = 0; i < NbTiles; i++) this.tiles[i] = new GameTile(i + 1, false);
-    this.newGame();
-    return true;
-    }
+  }
   
   /* *********************************************************************************************************************
    * Toggle clicked tile ...
@@ -113,10 +135,13 @@ export class GameBoard {
   
     if (this.secondPick) {
       console.log('TurnDown previous missmatch')
+      let dblClick = (this.firstPick === tile) || (this.secondPick === tile);
       this.firstPick.turnDown();
       this.secondPick.turnDown();
       this.firstPick = undefined;
       this.secondPick = undefined;
+      if (dblClick)
+        return;
       }
     
     if (!tile || tile.turnedOn || (this.firstPick === tile) ) {

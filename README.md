@@ -22,3 +22,10 @@ More info on this can be found on the Ionic [Getting Started](http://ionicframew
 
 + Test flex layout
 + Test ng animations
+
+
+#### Must read
+
+http://jvandemo.com/how-to-build-minesweeper-using-angular-2-and-immutable-js/
+https://github.com/shlomiassaf/ng2-chess
+http://www.angularjs4u.com/angularjs2/angular-2-games/

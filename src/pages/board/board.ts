@@ -1,14 +1,23 @@
-import { Component } from '@angular/core';
-import { GameBoard } from "../../providers/game-board";
+import {Component, OnInit} from '@angular/core';
+import {GameService, GameTile} from "../../providers/game.service";
+import {Observable} from "rxjs/Observable";
 
 
 @Component({
   selector: 'board',
   templateUrl: 'board.html'
 })
-export class GameBoardPage {
+export class GameBoardComponent implements OnInit {
   
-  constructor(public gameBoard: GameBoard) {
+  tiles$ : Observable<Array<GameTile>>;
+  
+  constructor(public gameService: GameService) {
 
   }
+  
+  ngOnInit(): void {
+    console.log('GameBoardPage>OnInit')
+    this.tiles$ = this.gameService.tiles$;
+  }
+  
 }

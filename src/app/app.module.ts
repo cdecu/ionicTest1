@@ -6,19 +6,21 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
+import { GameService } from "../providers/game.service";
 import { MyApp } from './app.component';
-import { GameBoardPage } from '../pages/board/board';
 import { ItemDetailsPage } from '../pages/item-details/item-details';
 import { ListPage } from '../pages/list/list';
+import { PlayGroundPage } from "../pages/board/playground";
 
-import { GameBoard } from "../providers/game-board";
+import { GameBoardComponent } from "../pages/board/board";
 import { BoardTileComponent } from "../pages/board/board-tile";
 
 @NgModule({
   declarations: [
     MyApp,
-    GameBoardPage,
-    BoardTileComponent,
+    PlayGroundPage,
+      GameBoardComponent,
+      BoardTileComponent,
     ItemDetailsPage,
     ListPage
   ],
@@ -30,14 +32,14 @@ import { BoardTileComponent } from "../pages/board/board-tile";
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    GameBoardPage,
+    PlayGroundPage,
     ItemDetailsPage,
     ListPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    GameBoard,
+    GameService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

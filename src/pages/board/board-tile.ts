@@ -17,7 +17,7 @@ import {GameService, GameTile} from "../../providers/game.service";
     ])]
 })
 export class BoardTileComponent {
-  
+
   @Input() tile : GameTile;
   public get frontState(): string { return this.tile.frontState};
   public get backState(): string { return this.tile.backState};
@@ -25,7 +25,7 @@ export class BoardTileComponent {
 
   constructor(private gameService: GameService ) {
     }
-  
+
   Toggle(): void {
     // console.log('Toggle ',this._tile);
     this.gameService.clickTile(this.tile);

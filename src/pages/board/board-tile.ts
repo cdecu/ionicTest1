@@ -21,6 +21,7 @@ export class BoardTileComponent {
   @Input() tile : GameTile;
   public get frontState(): string { return this.tile.frontState};
   public get backState(): string { return this.tile.backState};
+  public get frontText(): string { return this.tile.frontText};
   public get id(): number { return this.tile.id};
 
   constructor(private gameService: GameService ) {

@@ -11,10 +11,13 @@ export class GameTile {
   public key : string;
   public frontState = 'back';
   public backState = 'front';
+  public frontText = 'π';
+  
   public matched = false;
 
-  constructor(public id : number, public turnedOn : boolean) {
+  constructor(public gameService: GameService, public id : number, public turnedOn : boolean) {
     this.key=id.toString();
+    this.frontText=this.key;
     }
 
   public turnOn(): void {
@@ -60,6 +63,8 @@ export class GameService {
   private firstPick?: GameTile  = undefined;
   private secondPick?: GameTile = undefined;
 
+  public selectedItem: any;
+
 
   /* *********************************************************************************************************************
    * Ionic make me singleton iff
@@ -69,11 +74,14 @@ export class GameService {
     }
 
   public get tiles$(): Observable<Array<GameTile>> {
+    console.log('Build Tiles:',this.NbTiles);
     let t$ = new Observable<Array<GameTile>>((observer: Observer<Array<GameTile>>) => {
       let t : GameTile[] = [];
-      for (let i = 0 ; i < this.NbTiles ; i++)
-        t[i] = new GameTile(i + 1, false);
-      //this.shuffleTiles();
+      for (let i = 0,j=1 ; i < this.NbTiles ; i=i+2,j++) {
+        t[i  ] = new GameTile(this, j, false);
+        t[i+1] = new GameTile(this, j, false);
+        }
+      GameService.shuffleTiles(t);
       observer.next(t);
       observer.complete();
       });
@@ -83,7 +91,7 @@ export class GameService {
   /* *********************************************************************************************************************
    * Prepare tiles according to ...
    */
-  recalcBoard(platform: Platform): boolean {
+  public recalcBoard(platform: Platform): boolean {
     console.log('GameService recalcBoard Platform width:',platform.width(),'height:',platform.height());
     // Must match css board padding : .5px; + board-tile flex: 1 0 79.5px
     let NbCols = Math.floor(platform.width()  / 80.00);
@@ -94,17 +102,17 @@ export class GameService {
       console.log('Keep NbRows',NbRows,'NbCols',NbCols,'Tiles',Nb);
       return false;
       }
-    console.log('New Game NbRows',NbRows,'NbCols',NbCols,'Tiles',Nb);
+    console.log('NbRows',NbRows,'NbCols',NbCols,'Tiles',Nb);
     this.NbTiles = Nb;
-    this.newGame();
+    this.resetGame();
     return true;
   }
 
   /* *********************************************************************************************************************
    * New Game, Reset counters
    */
-  newGame(): void {
-    console.log('GameService NewGame Tiles',this.NbTiles);
+  private resetGame(): void {
+    console.log('Reset Game Tiles:',this.NbTiles);
     this.isOver = false;
     this.moves = 0;
     this.matches = 0;
@@ -118,15 +126,14 @@ export class GameService {
   /* *********************************************************************************************************************
    * shuffle tiles ...
    */
-  public shuffleTiles(): void {
+  private static shuffleTiles(tiles:GameTile[]): void {
     console.log('GameService shuffleTiles');
-    //this.tiles = shuffle(this.tiles);
-    //cards.map(card=> {
-    //  /** push the card twice with different ref */
-    //  this.cards.push(card);
-    //  this.cards.push(Object.assign({}, card));
-    //});
-  }
+    for (let i = tiles.length - 1; i > 0; i--) {
+      let j    = Math.floor(Math.random() * (i + 1));
+      let temp = tiles[i];
+      tiles[i] = tiles[j];
+      tiles[j] = temp;
+    } }
 
   /* *********************************************************************************************************************
    * Toggle clicked tile ...

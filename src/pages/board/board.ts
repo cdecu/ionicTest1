@@ -5,19 +5,19 @@ import {Observable} from "rxjs/Observable";
 
 @Component({
   selector: 'board',
-  templateUrl: 'board.html'
+  templateUrl: 'board.html',
 })
 export class GameBoardComponent implements OnInit {
-  
+
   tiles$ : Observable<Array<GameTile>>;
-  
+
   constructor(public gameService: GameService) {
 
   }
-  
+
   ngOnInit(): void {
     console.log('GameBoardPage>OnInit')
     this.tiles$ = this.gameService.tiles$;
   }
-  
+
 }

@@ -1,13 +1,11 @@
 import { Component, ViewChild } from '@angular/core';
 
-import {Platform, MenuController, Nav, IonicApp} from 'ionic-angular';
+import { Platform, MenuController, Nav, IonicApp} from 'ionic-angular';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { GameService } from "../providers/game.service";
-import { PlayGroundPage } from '../pages/board/playground';
-import { ListPage } from '../pages/list/list';
 
 
 @Component({
@@ -18,16 +16,13 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   // make GameBoardPage the root (or first) page
-  rootPage: any = ListPage;
+  rootPage: any = 'HomePage';
   pages: Array<{ title: string, component: any }>;
 
   /** ******************************************************************************************************************
    *
    * @param platform
    * @param app
-   * @param navCtrl
-   * @param app
-   * @param navCtrl
    * @param menu
    * @param statusBar
    * @param splashScreen
@@ -44,8 +39,8 @@ export class MyApp {
 
     // set our app's pages
     this.pages = [
-      {title: 'Hello Ionic', component: PlayGroundPage},
-      {title: 'My First List', component: ListPage}
+      {title: 'Hello', component: 'HomePage'},
+      {title: 'Scores', component: 'ScoresPage'}
     ];
   }
 

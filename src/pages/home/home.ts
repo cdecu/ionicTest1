@@ -1,15 +1,12 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
+import {IonicPage, NavController, NavParams} from 'ionic-angular';
 
-import { NavController, NavParams } from 'ionic-angular';
-
-import {PlayGroundPage} from "../board/playground";
-
-
+@IonicPage()
 @Component({
-  selector: 'page-list',
-  templateUrl: 'list.html'
+  selector: 'home-page',
+  templateUrl: 'home.html'
 })
-export class ListPage {
+export class HomePage {
   selectedItem: any;
   icons: string[];
   items: Array<{title: string, note: string, icon: string}>;
@@ -32,7 +29,7 @@ export class ListPage {
   }
 
   itemTapped(event, item) {
-    this.navCtrl.push(PlayGroundPage, {
+    this.navCtrl.push('PlayPage', {
       item: item
     });
   }

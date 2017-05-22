@@ -8,21 +8,19 @@ import {IonicPage, NavController, NavParams} from 'ionic-angular';
 })
 export class HomePage {
   selectedItem: any;
-  icons: string[];
-  items: Array<{title: string, note: string, icon: string}>;
+  items: Array<{key: string, title: string, icon: string}>;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
 
     this.selectedItem = navParams.get('item');
 
-    //this.icons = ['flask', 'wifi', 'beer', 'football', 'basketball', 'paper-plane',
-    //'american-football', 'boat', 'bluetooth', 'build'];
-
     this.items = [
-      { title: 'Numbers', note: 'Just Random Numbers', icon: 'flask'}
-     ,{ title: 'Greek Letters', note: 'Learn Greek Letters', icon: 'bluetooth'}
-     ,{ title: 'Hebrew Letters', note: 'Learn Hebrew Letters', icon: 'wifi'}
-     ,{ title: 'Contacts', note: 'Learn Contacts Phone Numbers', icon: 'boat'}
+      { key: 'Numbers'       , title: 'Random Numbers'                 , icon: 'flask'}
+     ,{ key: 'Greek Letters' , title: 'Greek Letters'                  , icon: 'bluetooth'}
+     ,{ key: 'Greek vs Latin', title: 'Greek vs Latin Letters'         , icon: 'bluetooth'}
+     ,{ key: 'Hebrew Letters', title: 'Hebrew Letters'                 , icon: 'wifi'}
+     ,{ key: 'Phone Numbers' , title: 'Contacts Phone Numbers'         , icon: 'boat'}
+     ,{ key: 'Contacts'      , title: 'Contacts Phone Numbers vs Image', icon: 'boat'}
       ];
     }
   

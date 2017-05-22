@@ -1,52 +1,10 @@
-import { Injectable } from '@angular/core';
-import { Platform } from 'ionic-angular';
+import {Http} from '@angular/http';
+import {Injectable} from '@angular/core';
+import {Platform} from 'ionic-angular';
 import {Observable} from "rxjs/Observable";
-import {Observer} from "rxjs/Observer";
-
-/* *********************************************************************************************************************
- flip flap game board tile
- */
-export class GameTile {
-
-  public key : string;
-  public frontState = 'back';
-  public backState = 'front';
-  public frontText = 'π';
-  
-  public matched = false;
-
-  constructor(public gameService: GameService, public id : number, public turnedOn : boolean) {
-    this.key=id.toString();
-    this.frontText=this.key;
-    }
-
-  public turnOn(): void {
-    this.frontState='front';
-    this.backState='back';
-    this.turnedOn=true;
-    }
-
-  public turnDown(): void {
-    this.frontState='back';
-    this.backState='front';
-    this.turnedOn=false;
-    this.matched=false;
-    }
-  public delayedTurnDown(): void {
-    this.frontState='delayedback';
-    this.backState='delayedfront';
-    this.turnedOn=false;
-    this.matched=false;
-    }
-
-  public match(): void {
-    this.frontState='front';
-    this.backState='back';
-    this.turnedOn=true;
-    this.matched=true;
-    }
-
-  }
+import {IGameDataProvider, GameTile} from "../interfaces/games-intf";
+import {GameNumbersProvider} from "./game-mumbers";
+import {GameGreekLettersProvider} from "./game-greekLetters";
 
 /* *********************************************************************************************************************
  flip flap game board tile
@@ -69,24 +27,16 @@ export class GameService {
   /* *********************************************************************************************************************
    * Ionic make me singleton iff
    */
-  constructor() {
+  constructor(private http: Http) {
     console.log('Hello GameService Provider');
     }
 
   public get tiles$(): Observable<Array<GameTile>> {
     console.log('Build Tiles:',this.NbTiles);
-    let t$ = new Observable<Array<GameTile>>((observer: Observer<Array<GameTile>>) => {
-      let t : GameTile[] = [];
-      for (let i = 0,j=1 ; i < this.NbTiles ; i=i+2,j++) {
-        t[i  ] = new GameTile(this, j, false);
-        t[i+1] = new GameTile(this, j, false);
-        }
-      GameService.shuffleTiles(t);
-      observer.next(t);
-      observer.complete();
-      });
+    let dataProvider : IGameDataProvider = this.getdataProvider();
+    let t$ = dataProvider.generateData(this.NbTiles);
     return t$;
-  }
+    }
 
   /* *********************************************************************************************************************
    * Prepare tiles according to ...
@@ -122,26 +72,31 @@ export class GameService {
     clearTimeout(this.timeoutID);
     this.timeoutID=undefined;
     }
+  
 
   /* *********************************************************************************************************************
    * shuffle tiles ...
    */
-  private static shuffleTiles(tiles:GameTile[]): void {
-    console.log('GameService shuffleTiles');
-    for (let i = tiles.length - 1; i > 0; i--) {
-      let j    = Math.floor(Math.random() * (i + 1));
-      let temp = tiles[i];
-      tiles[i] = tiles[j];
-      tiles[j] = temp;
-    } }
-
+  private getdataProvider(): IGameDataProvider{
+    console.log('getdataProvider');
+    let s = 'Numbers';
+    if (this.selectedItem){
+      s=this.selectedItem.title || 'Numbers';
+      }
+    switch(s) {
+      case 'Greek Letters':
+        return new GameGreekLettersProvider(this.http);
+      }
+    return new GameNumbersProvider();
+    }
+  
   /* *********************************************************************************************************************
    * Toggle clicked tile ...
    */
   public clickTile(tile: GameTile): void {
 
     if (this.secondPick) {
-      console.log('TurnDown previous missmatch')
+      console.log('TurnDown previous missmatch');
       let dblClick = (this.firstPick === tile) || (this.secondPick === tile);
       this.firstPick.turnDown();
       this.secondPick.turnDown();
@@ -152,12 +107,12 @@ export class GameService {
       }
 
     if (!tile || tile.turnedOn || (this.firstPick === tile) ) {
-      console.log('Double click on firstPick ?')
+      console.log('Double click on firstPick ?');
       return;
       }
 
     if (!this.firstPick) {
-      console.log('first Pick ! Turn On and Wait for the second pick')
+      console.log('first Pick ! Turn On and Wait for the second pick');
       this.firstPick = tile;
       this.startTimeOut();
       tile.turnOn();
@@ -165,7 +120,7 @@ export class GameService {
       }
 
     if (this.firstPick.key != tile.key) {
-      console.log('Second pick is missmatched !')
+      console.log('Second pick is missmatched !');
       this.secondPick = tile;
       this.startTimeOut();
       tile.turnOn();
@@ -173,7 +128,7 @@ export class GameService {
       return;
       }
 
-    console.log('match ! ',this.UnMatchedPairs)
+    console.log('match ! ',this.UnMatchedPairs);
     this.moves++;
     this.matches++;
     this.UnMatchedPairs--;

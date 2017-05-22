@@ -1,6 +1,8 @@
 import {Component, Input} from '@angular/core';
 import {animate, state, style, transition, trigger} from '@angular/animations';
-import {GameService, GameTile} from "../../providers/game.service";
+
+import {GameTile} from "../../interfaces/games-intf";
+import {GameService} from "../../providers/game.service";
 
 /* *********************************************************************************************************************
   flip flap game board tile
@@ -22,7 +24,6 @@ export class BoardTileComponent {
   public get frontState(): string { return this.tile.frontState};
   public get backState(): string { return this.tile.backState};
   public get frontText(): string { return this.tile.frontText};
-  public get id(): number { return this.tile.id};
 
   constructor(private gameService: GameService ) {
     }

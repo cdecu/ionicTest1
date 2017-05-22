@@ -1,12 +1,13 @@
-import { NgModule, ErrorHandler } from '@angular/core';
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import {NgModule, ErrorHandler } from '@angular/core';
+import {HttpModule} from '@angular/http';
+import {BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
-import { IonicApp, IonicModule, IonicErrorHandler} from 'ionic-angular';
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
+import {IonicApp, IonicModule, IonicErrorHandler} from 'ionic-angular';
+import {StatusBar } from '@ionic-native/status-bar';
+import {SplashScreen } from '@ionic-native/splash-screen';
 
-import { GameService } from "../providers/game.service";
-import { MyApp } from './app.component';
+import {GameService } from "../providers/game.service";
+import {MyApp } from './app.component';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { MyApp } from './app.component';
   ],
   imports: [
     IonicModule.forRoot(MyApp),
+    HttpModule,
     BrowserAnimationsModule
   ],
   bootstrap: [IonicApp],

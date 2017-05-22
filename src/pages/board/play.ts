@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams} from "ionic-angular";
+
 import {GameService} from "../../providers/game.service";
 
 @IonicPage()

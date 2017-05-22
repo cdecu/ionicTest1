@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {GameService, GameTile} from "../../providers/game.service";
 import {Observable} from "rxjs/Observable";
+
+import {GameTile} from "../../interfaces/games-intf";
+import {GameService} from "../../providers/game.service";
 
 
 @Component({

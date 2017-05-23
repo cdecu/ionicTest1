@@ -1,56 +1,26 @@
-[
- "Α"
-,"Β"
-,"Γ"
-,"Δ"
-,"Ε"
-,"Ζ"
-,"Η"
-,"Θ"
-,"Ι"
-,"Κ"
-,"Λ"
-,"Μ"
-,"Ν"
-,"Ξ"
-,"Ο"
-,"Π"
-,"Ρ"
-,"Σ"
-,"Τ"
-,"Υ"
-,"ϒ"
-,"Φ"
-,"Χ"
-,"Ψ"
-,"Ω"
-,"α"
-,"β"
-,"γ"
-,"δ"
-,"ε"
-,"ζ"
-,"η"
-,"θ"
-,"ϑ"
-,"ι"
-,"κ"
-,"λ"
-,"μ"
-,"ν"
-,"ξ"
-,"ο"
-,"π"
-,"ϖ"
-,"ρ"
-,"ς"
-,"σ"
-,"τ"
-,"υ"
-,"φ"
-,"χ"
-,"ψ"
-,"ω"
-,"ϒ"
-,"ϖ"
-]
+{
+ "Α"  : { "title" : "Alpha"}               ,"α"  : { "title" : "alpha"}
+,"Β"  : { "title" : "Beta"}                ,"β"  : { "title" : "beta"}
+,"Γ"  : { "title" : "Gamma"}               ,"γ"  : { "title" : "gamma"}
+,"Δ"  : { "title" : "Delta"}               ,"δ"  : { "title" : "delta"}
+,"Ε"  : { "title" : "Epsilon"}             ,"ε"  : { "title" : "epsilon"}
+,"Ζ"  : { "title" : "Zeta"}                ,"ζ"  : { "title" : "zeta"}
+,"Η"  : { "title" : "Eta"}                 ,"η"  : { "title" : "eta"}
+,"Θ"  : { "title" : "Theta"}               ,"θ"  : { "title" : "theta"}
+,"Ι"  : { "title" : "Iota"}                ,"ι"  : { "title" : "iota"}
+,"Κ"  : { "title" : "Kappa"}               ,"κ"  : { "title" : "kappa"}
+,"Λ"  : { "title" : "Lambda"}              ,"λ"  : { "title" : "lambda"}
+,"Μ"  : { "title" : "Mu"}                  ,"μ"  : { "title" : "mu"}
+,"Ν"  : { "title" : "Nu"}                  ,"ν"  : { "title" : "nu"}
+,"Ξ"  : { "title" : "Xi"}                  ,"ξ"  : { "title" : "xi"}
+,"Ο"  : { "title" : "Omicron"}             ,"ο"  : { "title" : "omicron"}
+,"Π"  : { "title" : "Pi"}                  ,"π"  : { "title" : "pi"}
+,"Ρ"  : { "title" : "Rho"}                 ,"ρ"  : { "title" : "rho"}
+,"Σ"  : { "title" : "Sigma"}               ,"σ"  : { "title" : "sigma"}          ,"ς"  : { "title" : "sigma final"}
+,"Τ"  : { "title" : "Tau"}                 ,"τ"  : { "title" : "tau"}
+,"Υ"  : { "title" : "Upsilon"}             ,"υ"  : { "title" : "upsilon"}
+,"Φ"  : { "title" : "Phi"}                 ,"φ"  : { "title" : "phi"}
+,"Χ"  : { "title" : "Chi"}                 ,"χ"  : { "title" : "chi"}
+,"Ψ"  : { "title" : "Psi"}                 ,"ψ"  : { "title" : "psi"}
+,"Ω"  : { "title" : "Omega"}               ,"ω"  : { "title" : "omega"}
+}

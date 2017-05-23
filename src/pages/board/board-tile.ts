@@ -24,6 +24,9 @@ export class BoardTileComponent {
   public get frontState(): string { return this.tile.frontState};
   public get backState(): string { return this.tile.backState};
   public get frontText(): string { return this.tile.frontText};
+  public get matched(): boolean { return this.tile.matched};
+  public get isLetter(): boolean { return this.tile.isLetter};
+  public get isText(): boolean { return this.tile.isText};
 
   constructor(private gameService: GameService ) {
     }

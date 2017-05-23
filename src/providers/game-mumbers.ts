@@ -5,7 +5,7 @@ import {IGameDataProvider, GameTile, shuffleTiles} from "../interfaces/games-int
 
 export class GameNumbersProvider implements IGameDataProvider{
 
-  constructor() {
+  constructor(private selection:string) {
     console.log('Hello GameNumbers Provider');
     }
   
@@ -22,11 +22,14 @@ export class GameNumbersProvider implements IGameDataProvider{
         do j = Math.floor(Math.random() * 2 * (c + 1));
         while (usedNumbers.indexOf(j) !== -1);
         tiles[i].frontText = j.toString();
+        tiles[i].isLetter = true;
         usedNumbers.push(j)
         }
       
-      for (let i = 0; i < c ; i++)
-        tiles[c+i] = new GameTile(tiles[i].key,tiles[i].frontText);
+      for (let i = 0; i < c ; i++) {
+        tiles[c + i] = new GameTile(tiles[i].key, tiles[i].frontText);
+        tiles[c + i].isLetter = true;
+        }
       
       shuffleTiles(tiles);
       observer.next(tiles);

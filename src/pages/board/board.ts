@@ -18,7 +18,7 @@ export class GameBoardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('GameBoardPage>OnInit:',this.gameService.selectedItem);
+    //console.log('GameBoardPage>OnInit:',this.gameService.selectedItem);
     this.tiles$ = this.gameService.tiles$;
   }
 

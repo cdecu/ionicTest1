@@ -5,6 +5,7 @@ import {Observable} from "rxjs/Observable";
 import {IGameDataProvider, GameTile} from "../interfaces/games-intf";
 import {GameNumbersProvider} from "./game-mumbers";
 import {GameGreekLettersProvider} from "./game-greekLetters";
+import {GameHebrewLettersProvider} from "./game-hebrewLetters";
 
 /* *********************************************************************************************************************
  flip flap game board tile
@@ -78,16 +79,22 @@ export class GameService {
    * shuffle tiles ...
    */
   private getdataProvider(): IGameDataProvider{
-    console.log('getdataProvider');
-    let s = 'Numbers';
+    let s = 'GreekLetters';
     if (this.selectedItem){
-      s=this.selectedItem.title || 'Numbers';
+      s=this.selectedItem.key || 'GreekLetters';
       }
+    //console.log('getdataProvider',s);
     switch(s) {
-      case 'Greek Letters':
-        return new GameGreekLettersProvider(this.http);
+      case 'GreekLetters':
+      case 'GreekLetterVsName':
+        return new GameGreekLettersProvider(this.http,s);
+      case 'HebrewLetters':
+      case 'HebrewLetterVsName':
+        return new GameHebrewLettersProvider(this.http,s);
+      case 'Numbers':
+        return new GameNumbersProvider(s);
       }
-    return new GameNumbersProvider();
+    return new GameGreekLettersProvider(this.http,s);
     }
   
   /* *********************************************************************************************************************

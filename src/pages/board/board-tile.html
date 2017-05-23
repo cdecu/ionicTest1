@@ -1,6 +1,6 @@
 <div class="card">
   <div class="front" (click)="Toggle()" [@flipflap]="frontState">
-    <div class="front-text">
+    <div [ngClass]="{'front-matched':matched,'front-letter':isLetter,'front-text':isText}">
     {{frontText}}
     </div>
   </div>

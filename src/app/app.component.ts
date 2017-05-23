@@ -40,7 +40,8 @@ export class MyApp {
     // set our app's pages
     this.pages = [
       {title: 'Hello', component: 'HomePage'},
-      {title: 'Scores', component: 'ScoresPage'}
+      {title: 'Scores', component: 'ScoresPage'},
+      {title: 'Help', component: 'ScoresPage'}
     ];
   }
 
@@ -51,7 +52,7 @@ export class MyApp {
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
-      this.statusBar.styleDefault();
+      this.statusBar.hide();
       this.splashScreen.hide();
       this.gameBoard.recalcBoard(this.platform);
       });

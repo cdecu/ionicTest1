@@ -15,12 +15,13 @@ export class HomePage {
     this.selectedItem = navParams.get('item');
 
     this.items = [
-      { key: 'Numbers'       , title: 'Random Numbers'                 , icon: 'flask'}
-     ,{ key: 'Greek Letters' , title: 'Greek Letters'                  , icon: 'bluetooth'}
-     ,{ key: 'Greek vs Latin', title: 'Greek vs Latin Letters'         , icon: 'bluetooth'}
-     ,{ key: 'Hebrew Letters', title: 'Hebrew Letters'                 , icon: 'wifi'}
-     ,{ key: 'Phone Numbers' , title: 'Contacts Phone Numbers'         , icon: 'boat'}
-     ,{ key: 'Contacts'      , title: 'Contacts Phone Numbers vs Image', icon: 'boat'}
+      { key: 'Numbers'             , title: 'Random Numbers'                 , icon: 'flask'}
+     ,{ key: 'GreekLetters'        , title: 'Greek Letters'                  , icon: 'bluetooth'}
+     ,{ key: 'GreekLeeterVsName'   , title: 'Greek Letters vs Latin Name'    , icon: 'bluetooth'}
+     ,{ key: 'HebrewLetters'       , title: 'Hebrew Letters'                 , icon: 'wifi'}
+     ,{ key: 'HebrewLetterVsName'  , title: 'Hebrew Letters vs Latin Name'   , icon: 'wifi'}
+     ,{ key: 'Phone Numbers'       , title: 'Contacts Phone Numbers'         , icon: 'boat'}
+     ,{ key: 'Contacts'            , title: 'Contacts Phone Numbers vs Image', icon: 'boat'}
       ];
     }
   

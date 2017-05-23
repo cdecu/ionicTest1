@@ -1,0 +1,29 @@
+{
+  "א" : { "title" : "Alef"}
+, "ב" : { "title" : "Bet"}
+, "ג" : { "title" : "Gimel"}
+, "ד" : { "title" : "Dalet"}
+, "ה"	: { "title" : "He"}
+, "ו" : { "title" : "Vav"}
+, "ז" : { "title" : "Zayin"}
+, "ח"	: { "title" : "Het"}
+, "ט"	: { "title" : "Tet"}
+, "י" : { "title" : "Yod"}
+, "ך" : { "title" : "FinalKaf"}
+, "כ" : { "title" : "Kaf"}
+, "ל" : { "title" : "Lamed"}
+, "ם" : { "title" : "FinalMem"}
+, "מ"	: { "title" : "Mem"}
+, "ן" : { "title" : "FinalNun"}
+, "נ" : { "title" : "Nun"}
+, "ס"	: { "title" : "Samekh"}
+, "ע"	: { "title" : "Ayin"}
+, "ף"	: { "title" : "FinalPe"}
+, "פ"	: { "title" : "Pe"}
+, "ץ"	: { "title" : "FinalTsadi"}
+, "צ"	: { "title" : "Tsadi"}
+, "ק"	: { "title" : "Qof"}
+, "ר" : { "title" : "Resh"}
+, "ש"	: { "title" : "Shin"}
+, "ת"	: { "title" : "Tav"}
+}
